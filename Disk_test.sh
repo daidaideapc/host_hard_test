@@ -6,24 +6,24 @@ then
     exit
 fi
 
-echo -e "\nread:\n"
+echo -e "\n\n"
 
-fio -filename=$1 -direct=1 -iodepth 1 -thread -rw='read' -ioengine=psync -bs=16k -size=200G -runtime=200 -group_reporting -name=mytestr
+fio -filename=$1 -direct=1 -iodepth 64 -thread -rw='read' -ioengine=libaio -bs=64k -size=10G -runtime=200 -group_reporting -name=mytestr
 
-echo -e "\nwrite\n"
+echo -e "\n\n"
 
-fio -filename=$1 -direct=1 -iodepth 1 -thread -rw=write -ioengine=psync -bs=16k -size=200G -runtime=200 -group_reporting -name=mytestw
+fio -filename=$1 -direct=1 -iodepth 64 -thread -rw=write -ioengine=libaio -bs=64k -size=10G -runtime=200 -group_reporting -name=mytestw
 
-echo -e "\nrandread:\n"
+echo -e "\n\n"
 
-fio -filename=$1 -direct=1 -iodepth 1 -thread -rw=randread -ioengine=psync -bs=16k -size=200G -runtime=200 -group_reporting -name=mytestrr
+fio -filename=$1 -direct=1 -iodepth 8 -thread -rw=randread -ioengine=libaio -bs=4k -size=10G -runtime=200 -group_reporting -name=mytestrr
 
-echo -e "\nrandwrite\n"
+echo -e "\n\n"
 
-fio -filename=$1 -direct=1 -iodepth 1 -thread -rw=randwrite -ioengine=psync -bs=16k -size=200G -runtime=200 -group_reporting -name=mytestrw
+fio -filename=$1 -direct=1 -iodepth 8 -thread -rw=randwrite -ioengine=libaio -bs=4k -size=10G -runtime=200 -group_reporting -name=mytestrw
 
 
-echo -e "\nrandreadwrite\n"
+echo -e "\n\n"
 
-fio -filename=$1 -direct=1 -iodepth 1 -thread -rw=randrw -ioengine=psync -bs=16k -size=200G -runtime=200 -group_reporting -name=myrandrw
+fio -filename=$1 -direct=1 -iodepth 8 -thread -rw=randrw -ioengine=libaio -bs=4k -size=10G -runtime=200 -group_reporting -name=myrandrw
 
